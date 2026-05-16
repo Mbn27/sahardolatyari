@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sahar Dolatyari — Artist Portfolio
 
-## Getting Started
+The personal portfolio website of [Sahar Dolatyari](https://sahardolatyari.com), painter and visual artist. The site presents her gallery of work, a short biography, and a way to get in touch.
 
-First, run the development server:
+## Stack
+
+- **[Next.js 16](https://nextjs.org/)** with the App Router
+- **TypeScript**
+- **[Tailwind CSS v4](https://tailwindcss.com/)** (CSS-based config via `@theme`)
+- **[next/image](https://nextjs.org/docs/app/api-reference/components/image)** for image optimization
+- **[next/font](https://nextjs.org/docs/app/api-reference/components/font)** with Inter (sans) + Cormorant Garamond (serif)
+- **ESLint 9** (flat config) via `eslint-config-next`
+- Deployed on **[Vercel](https://vercel.com/)** with DNS managed through **Cloudflare**
+
+## Getting started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) **18.18 or newer** (Node 20+ recommended)
+- npm (bundled with Node)
+
+### Install and run
 
 ```bash
+git clone https://github.com/Mbn27/sahardolatyari.git
+cd sahardolatyari
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The dev server runs at <http://localhost:3000>. Edits to files under `src/` hot-reload automatically.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Available scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command         | What it does                    |
+| --------------- | ------------------------------- |
+| `npm run dev`   | Start the local dev server      |
+| `npm run build` | Build the production bundle     |
+| `npm start`     | Run the built production bundle |
+| `npm run lint`  | Run ESLint                      |
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+sahardolatyari/
+├── public/
+│   └── images/
+│       ├── gallery/    # artwork images — drop new pieces here
+│       ├── about/      # portrait / studio photos
+│       └── hero/       # homepage hero imagery
+├── src/
+│   ├── app/            # App Router routes
+│   │   ├── layout.tsx  # root layout (Navbar, Footer, fonts, metadata)
+│   │   ├── page.tsx    # /            — home
+│   │   ├── gallery/    # /gallery
+│   │   ├── about/      # /about
+│   │   └── contact/    # /contact
+│   ├── components/
+│   │   ├── layout/     # Navbar, Footer
+│   │   ├── gallery/    # GalleryGrid, ArtworkCard
+│   │   └── ui/         # shared building blocks (Container, etc.)
+│   └── lib/
+│       └── artworks.ts # typed source of truth for gallery items
+├── next.config.ts
+├── tsconfig.json
+└── package.json
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Adding artwork
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Artworks are listed in [`src/lib/artworks.ts`](src/lib/artworks.ts) as a typed array. To add a new piece:
 
-## Deploy on Vercel
+1. Place the image file in `public/images/gallery/`.
+2. Add an entry to the `artworks` array:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```ts
+{
+  slug: "morning-light",
+  title: "Morning Light",
+  year: 2024,
+  medium: "Oil on canvas, 80 × 100 cm",
+  image: "/images/gallery/morning-light.jpg",
+  description: "A study of natural light on linen.",
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The gallery page renders all entries automatically.
+
+## Deployment
+
+The site deploys to [Vercel](https://vercel.com/) on every push to `main`. Production URL: **sahardolatyari.com** (DNS via Cloudflare).
+
+To deploy manually:
+
+```bash
+npm run build
+```
+
+Then push to `main` — Vercel picks up the change.
+
+## License
+
+All artwork and content © Sahar Dolatyari. The site source code is private to the artist.
