@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
-import GalleryGrid from "@/components/gallery/GalleryGrid";
+import GalleryView from "@/components/gallery/GalleryView";
 import { artworks } from "@/lib/artworks";
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default function GalleryPage() {
           A selection of recent and ongoing works.
         </p>
       </header>
-      <GalleryGrid artworks={artworks} />
+      <GalleryView artworks={artworks} />
     </Container>
   );
 }
